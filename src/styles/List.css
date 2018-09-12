@@ -1,0 +1,17 @@
+.list {
+  background-color: rgb(227, 255, 125);
+  box-sizing: border-box;
+  width: 400px;
+  padding: 10px;
+  display: inline-block;
+  margin: 10px;
+}
+
+.list-header img {
+  display: block;
+  margin-left: auto;
+}
+
+.list-body p {
+  text-align: center;
+}

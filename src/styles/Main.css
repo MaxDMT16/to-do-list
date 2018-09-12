@@ -1,0 +1,17 @@
+.header {
+  padding: 10px;
+}
+
+.header button {
+  background-color: rgb(243, 247, 54);
+  color: rgb(169, 172, 0);
+  border: none;
+  border-radius: 20px;
+  display: block;
+  width: 100%;
+  padding: 10px;
+}
+
+.header button:focus {
+  outline: none;
+}
