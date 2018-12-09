@@ -7,20 +7,31 @@ class ListItem extends Component {
 
     this.state = { value: props.value };
 
-    this.handleItemChange = this.handleItemChange.bind(this);
+    this.handleItemValueChange = this.handleItemValueChange.bind(this);
+    this.handleItemStateChange = this.handleItemStateChange.bind(this);
+    this.renderDeleteButton = this.renderDeleteButton.bind(this);
   }
 
-  handleItemChange(event) {
+  handleItemStateChange(event) {
+    console.log(event);
+
+    const changedItem = {
+      isComplete: event.target.checked,
+      value: this.props.value
+    };
+
+    this.props.onStateChange(changedItem);
+  }
+
+  handleItemValueChange(event) {
     const newValue = event.target.value;
-
     this.setState({ value: newValue });
-
     this.props.onChange({ id: this.props.id, value: newValue });
   }
 
-  render() {
-    return (
-      <div className="list-item">
+  renderDeleteButton() {
+    if (!this.props.isComplete) {
+      return (
         <img
           alt="Delete"
           src="images/outline_close_black_18dp.png"
@@ -28,10 +39,24 @@ class ListItem extends Component {
             this.props.onDeleteItem(this.props.id);
           }}
         />
+      );
+    }
+  }
+
+  render() {
+    return (
+      <div className="list-item">
+        {this.renderDeleteButton()}
+        <input
+          type="checkbox"
+          checked={this.props.isComplete}
+          onChange={this.handleItemStateChange}
+        />
         <input
           type="text"
-          value={this.state.value}
-          onChange={this.handleItemChange}
+          value={this.props.value}
+          onChange={this.handleItemValueChange}
+          disabled={this.props.isComplete}
         />
       </div>
     );
@@ -41,8 +66,10 @@ class ListItem extends Component {
 ListItem.defaultProps = {
   value: "",
   id: -1,
+  isComplete: false,
   onDeleteItem: () => {},
-  onChange: e => {}
+  onChange: e => {},
+  onStateChange: () => {}
 };
 
 export default ListItem;

@@ -8,13 +8,21 @@ class Main extends Component {
     this.state = { lists: [] };
 
     this.handleCreateList = this.handleCreateList.bind(this);
+    this.handleDeleteList = this.handleDeleteList.bind(this);
   }
 
   handleCreateList() {
     let lists = this.state.lists.slice();
     const id = lists.length + 1;
-    lists.push(<List key={id} id={id} />);
+    lists.push(<List key={id} id={id} onDeleteList={this.handleDeleteList} />);
     this.setState({ lists: lists });
+  }
+
+  handleDeleteList(id) {
+    console.log(`Try to delete list with id: ${id}`);
+    var filteredLists = this.state.lists.slice();
+    filteredLists = filteredLists.filter(list => list.props.id !== id);
+    this.setState({ lists: filteredLists });
   }
 
   render() {
